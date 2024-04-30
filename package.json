@@ -1,0 +1,26 @@
+{
+  "name": "babewakeup",
+  "version": "1.0.0",
+  "description": "Website to remotely wake up a computer on the same LAN as the server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olillin/BabeWakeUp.git"
+  },
+  "author": "Oli <oli@olillin.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/olillin/BabeWakeUp/issues"
+  },
+  "homepage": "https://github.com/olillin/BabeWakeUp#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "wol": "^1.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

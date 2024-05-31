@@ -1,20 +1,25 @@
 const child_process = require('child_process')
 const wol = require('wol')
+const ping = require('ping')
 
 class Computer {
     /** @type {MAC} */
     mac_address
+    /** @type {string} */
+    ip_address
 
     /**
      * @param {MAC} mac_address The MAC address of this computer
+     * @param {string} ip_address The IP address of this computer
      */
-    constructor(mac_address) {
+    constructor(mac_address, ip_address) {
         try {
             wol.createMagicPacket(mac_address.separated(':'))
         } catch (e) {
             throw new Error('Malformed MAC address')
         }
         this.mac_address = mac_address
+        this.ip_address = ip_address
     }
 
     /**
@@ -41,11 +46,9 @@ class Computer {
      * @return {Promise<boolean>}
      */
     isAwake = function () {
-        return new Promise((resolve, reject) => {
-            // Check if MAC exists in ARP
-            child_process.exec('arp -a', (error, stdout, stderr) => {
-                let compare = process.platform === 'win32' ? this.mac_address.replaceAll(':', '-') : this.mac_address
-                resolve(stdout.includes(compare))
+        return new Promise(async (resolve, reject) => {
+            ping.promise.probe(this.ip_address).then(response => {
+                resolve(response.alive)
             })
         })
     }

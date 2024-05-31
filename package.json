@@ -19,6 +19,7 @@
   "homepage": "https://github.com/olillin/BabeWakeUp#readme",
   "dependencies": {
     "express": "^4.19.2",
+    "ping": "^0.4.4",
     "wol": "^1.0.7"
   },
   "devDependencies": {

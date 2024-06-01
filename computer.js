@@ -30,12 +30,21 @@ class Computer {
         console.log(`Attempting to wake up ${this}`)
         return new Promise((resolve, reject) => {
             // Send Wake on LAN package
-            wol.wake(this.mac_address.separated(':'), null, (err, res) => {
+            let options = {
+                address: this.ipAddress,
+            }
+            wol.wake(this.mac_address.separated(':'), options, (err, res) => {
                 // End Promise
                 if (err) {
                     reject(err)
                 } else {
-                    resolve(res)
+                    this.isAwake()
+                        .then(awake => {
+                            resolve(awake)
+                        })
+                        .catch(err => {
+                            reject(err)
+                        })
                 }
             })
         })

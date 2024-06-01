@@ -33,6 +33,8 @@ app.post('/wake', (req, res) => {
         .then(response => {
             if (response === true) {
                 console.log('Turned on computer successfully')
+            } else {
+                console.warn('Failed to turn on computer')
             }
             res.status(200).json({
                 success: response,

@@ -6,6 +6,7 @@ var currentState
  */
 function wake() {
     console.log('Attempting to wake up computer...')
+    setState('WAKING')
     fetch('/wake', {
         method: 'POST',
     }).then(async res => {

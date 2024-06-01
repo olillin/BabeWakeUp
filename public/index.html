@@ -11,8 +11,23 @@
 </head>
 
 <body>
-    <button onclick="wake()" id="wake">
-        <img src="/img/sleeping.png" alt="Click to wake up" id="stateImage">
+    <button onclick="wake()" id="wake" disabled>
+        <img alt="Loading..." id="stateImage">
+        <script>
+            function refreshAwake() {
+                isAwake().then(awake => {
+                    console.log('Checking if computer is awake...')
+                    setState(awake ? 'AWAKE' : 'SLEEPING')
+                })
+            }
+
+            refreshAwake()
+            window.addEventListener('focus', () => {
+                if (currentState === 'AWAKE' || currentState === 'SLEEPING') {
+                    refreshAwake()
+                }
+            })
+        </script>
     </button>
 </body>
 

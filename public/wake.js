@@ -21,6 +21,24 @@ function wake() {
 }
 
 /**
+ * @returns {Promise<Boolean>} If the computer is awake or not
+ */
+function isAwake() {
+    return new Promise((resolve, reject) => {
+        fetch('/awake').then(async res => {
+            const text = await res.text()
+            if (res.status === 200) {
+                let awake = JSON.parse(text)
+                resolve(awake)
+            } else {
+                console.warn(`Server responded with error while checking if computer is awake: ${text}`)
+                resolve(false)
+            }
+        })
+    })
+}
+
+/**
  * Change the website state
  * @param {string} state Must be one of the following: SLEEPING, WAKING, FAILED, AWAKE
  * @returns {string} The current state after running

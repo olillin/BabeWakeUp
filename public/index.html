@@ -17,16 +17,14 @@
             function refreshAwake() {
                 isAwake().then(awake => {
                     console.log('Checking if computer is awake...')
-                    setState(awake ? 'AWAKE' : 'SLEEPING')
+                    if (currentState == undefined || currentState === 'AWAKE' || currentState === 'SLEEPING') {
+                        setState(awake ? 'AWAKE' : 'SLEEPING')
+                    }
                 })
             }
 
             refreshAwake()
-            window.addEventListener('focus', () => {
-                if (currentState === 'AWAKE' || currentState === 'SLEEPING') {
-                    refreshAwake()
-                }
-            })
+            window.addEventListener('focus', refreshAwake)
         </script>
     </button>
 </body>

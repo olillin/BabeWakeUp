@@ -15,12 +15,14 @@
         <img alt="Loading..." id="stateImage">
         <script>
             function refreshAwake() {
-                isAwake().then(awake => {
-                    console.log('Checking if computer is awake...')
-                    if (currentState == undefined || currentState === 'AWAKE' || currentState === 'SLEEPING') {
-                        setState(awake ? 'AWAKE' : 'SLEEPING')
-                    }
-                })
+                if (currentState == undefined || currentState === 'AWAKE' || currentState === 'SLEEPING') {
+                    isAwake().then(awake => {
+                        console.log('Checking if computer is awake...')
+                        if (currentState == undefined || currentState === 'AWAKE' || currentState === 'SLEEPING') {
+                            setState(awake ? 'AWAKE' : 'SLEEPING')
+                        }
+                    })
+                }
             }
 
             refreshAwake()

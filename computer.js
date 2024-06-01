@@ -38,7 +38,7 @@ class Computer {
                 if (err) {
                     reject(err)
                 } else {
-                    this.isAwake()
+                    this.isAwake(10)
                         .then(awake => {
                             resolve(awake)
                         })
@@ -52,11 +52,12 @@ class Computer {
 
     /**
      * Check if the computer is awake.
+     * @param {number} count
      * @return {Promise<boolean>}
      */
-    isAwake = function () {
+    isAwake = function (count = 1) {
         return new Promise(async (resolve, reject) => {
-            ping.promise.probe(this.ip_address).then(response => {
+            ping.promise.probe(this.ip_address, { min_reply: count }).then(response => {
                 resolve(response.alive)
             })
         })
